@@ -1,9 +1,357 @@
 <!DOCTYPE html>
 <html>
+
 <head>
- 
+  <title></title>
+  <script>
+    function exe() {
+      if (res1 == 0) {
+        msg1.innerHTML="sundday";
+      } else if (this.res1 == 1) {
+        msg1.innerHTML="monday";
+      } else if (this.res1 == 2) {
+        msg1.innerHTML="tuesday";
+      } else if (this.res1 == 3) {
+        msg1.innerHTML="wednesday";
+      } else if (this.res1 == 4) {
+        msg1.innerHTML="thursday";
+      } else if (this.res1 == 5) {
+        msg1.innerHTML="friday";
+      } else if (this.res1 == 6) {
+        msg1.innerHTML="saturday";
+      }
+    }
+
+    function bodyload() {
+      show = document.getElementById("ShowButton");
+      show.style.display = "none";
+    }
+
+    function MonthSelect() {
+      year = document.getElementById("txtYear");
+      month = document.getElementById("txtMonth");
+      date = document.getElementById("txtDate");
+      msg = document.getElementById("msg");
+      msg.style.display = "none";
+
+
+      if (month.value == 1) {
+        date.min = "1";
+        date.max = "31";
+        date.value = "31";
+
+      } else if (month.value == 2) {
+        year = document.getElementById("txtYear").value;
+
+
+        len = year.length;
+        display = year.substring(len - 2);
+
+        lst = parseInt(display);
+
+        YR = lst % 4;
+        if (YR == 0) {
+          date.min = "1";
+          date.max = "29";
+          date.value = "29";
+        } else {
+          date.min = "1";
+          date.max = "28";
+          date.value = "28";
+        }
+
+
+      } else if (month.value == 3) {
+        date.min = "1";
+        date.max = "31";
+        date.value = "31";
+
+      } else if (month.value == 4) {
+        date.min = "1";
+        date.max = "30";
+        date.value = "30";
+      } else if (month.value == 5) {
+        date.min = "1";
+        date.max = "31"
+        date.value = "31";
+      } else if (month.value == 6) {
+        date.min = "1";
+        date.max = "30";
+        date.value = "30";
+      } else if (month.value == 7) {
+        date.min = "1";
+        date.max = "31";
+        date.value = "31";
+
+      } else if (month.value == 8) {
+        date.min = "1";
+        date.max = "31";
+        date.value = "31";
+      } else if (month.value == 9) {
+        date.min = "1";
+        date.max = "30";
+        date.value = "30";
+      } else if (month.value == 10) {
+        date.min = "1";
+        date.max = "31";
+        date.value = "31";
+      } else if (month.value == 11) {
+        date.min = "1";
+        date.max = "30";
+        date.value = "30";
+      } else if (month.value == 12) {
+        date.min = "1";
+        date.max = "31";
+        date.value = "31";
+      } else if (month.value == "") {
+        msg.style.display = "none";
+      } else {
+        alert("Invalid Month Number,please select a number between (1-12)");
+        month.value = "";
+        date.value = "";
+        year.value = "";
+      }
+      if (year.value == "") {
+        return;
+      }
+      if (year.value < 0) {
+        alert("invalid year");
+        year.value = "";
+      }
+    }
+
+    function CheckDate() {
+      date = document.getElementById("txtDate");
+      if (date.value == "") {
+        return;
+      }
+      if (date.value > date.max || date.value < date.min) {
+        alert("invalid date");
+        date.value = date.max;
+      }
+
+    }
+
+    function ClearClick() {
+      month.value = "";
+      date.value = "";
+      year.value = "";
+      msg.style.display = "none";
+      msg1.style.display = "none";
+    }
+
+    function FindClick() {
+      year = document.getElementById("txtYear");
+      month = document.getElementById("txtMonth");
+      date = document.getElementById("txtDate");
+      msg = document.getElementById("msg");
+      x = month.value;
+      if (x === "") {
+        alert("please provide month to proceed");
+      } else if (date.value === "") {
+        alert("please provide date to proceed");
+      } else if (year.value === "") {
+        alert("please provide year to proceed");
+      } else {
+        msg.style.display = "none";
+        msg = document.getElementById("msg");
+        date = document.getElementById("txtDate");
+        msg1 = document.getElementById("msg1");
+        msg1.style.display = "block";
+        year = document.getElementById("txtYear");
+        M = parseInt(month.value);
+        pY = parseInt(year.value);
+        q = pY % 100;
+        r = pY - q;
+        h = r % 400;
+        if (h == 0) {
+          ca = 2;
+        } else if (h == 100) {
+          ca = 0;
+        } else if (h == 200) {
+          ca = 5;
+        } else if (h == 300) {
+          ca = 3;
+        }
+        a = pY % 200;
+        if (a > 100) {
+          a = a % 100;
+        }
+        Z = a / 12;
+        z = parseInt(Z);
+        n = a - 12 * z;
+        P = n / 4;
+        p = parseInt(P);
+        sum = ca + z + n + p;
+        //console.log(ca);
+        res = sum % 7;
+        D = parseInt(date.value);
+        //console.log(D);
+        if (M == 1) {
+          if (a % 4 == 0) {
+            res = res - 1;
+          }
+          D = D + res + 7;
+          D = D - 3;
+          D = D % 7;
+          res1 = D;
+          exe();
+        } else if (M == 2) {
+          if (a % 4 == 0) {
+            res = res - 1;
+          }
+          D = D % 7;
+          res1 = D + res;
+          if (res1 > 6) {
+            res1 = res1 % 7;
+            console.log(res1);
+            exe();
+          } else {
+            exe();
+          }
+        } else if (M == 3 || M == 11) {
+          D = D % 7;
+          res1 = D + res;
+          if (res1 > 6) {
+            res1 = res1 % 7;
+            exe();
+          } else {
+            exe();
+          }
+        } else if (M == 4 || M == 7) {
+          if (D == 1) {
+            res1 = res + M;
+          } else {
+            D = D - 4;
+            D = D + res;
+            res1 = D;
+          }
+          if (res1 > 6) {
+            res1 = res1 % 7;
+            exe();
+          } else {
+            exe();
+          }
+        } else if (M == 5) {
+          if (D > 1) {
+            D = D - 2;
+            D = D + res;
+            if (D > 0) {
+              D = D % 7;
+            }
+            res1 = D;
+          } else {
+            res1 = res - 1;
+          }
+          exe();
+        } else if (M == 6) {
+          if (D > 5) {
+            D = D - 6;
+            D = D % 7;
+            D = D + res;
+            if (D > 0) {
+              D = D % 7;
+            }
+            res1 = D;
+          } else if (D > 0 && D < 6) {
+            D = D + res + 1;
+            if (D > 6) {
+              D = D % 7;
+            }
+            res1 = D;
+          }
+          exe();
+        } else if (M == 8) {
+          res1 = D + res - 1;
+          if (res1 > 7) {
+            res1 = res1 % 7;
+          }
+          exe();
+        } else if (M == 9) {
+          D = D + M + res;
+          D = D % 7;
+          res1 = D;
+          exe();
+        } else if (M == 12) {
+          D = D + M + res - 3;
+          D = D % 7;
+          res1 = D;
+          exe();
+        } else if (M == 10) {
+          D = D + res + 7;
+          D = D - 3;
+          D = D % 7;
+          res1 = D;
+          exe();
+        }
+      }
+    }
+  </script>
+  <style>
+    #txtMonth,
+    #txtDate,
+    #txtYear {
+      width: 60px;
+    }
+
+    .buttons {
+
+      font-size: 20px;
+      text-align: center;
+      cursor: pointer;
+      outline: none;
+      color: yellow;
+      background-color: red;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 2px #999;
+    }
+
+    .buttons:active {
+      background-color: #3e8e41;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+
+    #mainDiv {
+      background-color: grey;
+      border: 2px solid red;
+      width: 250px;
+      margin: auto;
+      padding: 10px;
+
+    }
+  </style>
 </head>
-<body>
-    <h3>hello world!!</h3>
+
+<body onload="bodyload()">
+  <form>
+    <div id="mainDiv" align="center">
+      <span style="color:yellow">Month</span>&nbsp
+      <input type="number" min="1" max="12" id="txtMonth" size="20" onkeyup="MonthSelect()">
+      <br>
+      <br>
+      <span style="color:yellow">Date</span>&nbsp&nbsp&nbsp&nbsp
+      <input type="number" id="txtDate" min="" max="" size="20" onkeyup="CheckDate()">
+      <br>
+      <br>
+      <span style="color:yellow">Year</span>&nbsp&nbsp&nbsp&nbsp
+      <input type="number" id="txtYear" size="20" onkeyup="MonthSelect()">
+      <br>
+      <br>
+      <input type="button" class="buttons" value="Find" onclick="FindClick()">&nbsp
+      <input type="button" class="buttons" value="clear" onclick="ClearClick()">
+    </div>
+    <br>
+    <div align="center">
+      <input type="button" value="Show" onclick="ShowClick()" id="ShowButton">
+    </div>
+    <div id="msg" align="center"></div>
+    <div id="msg2" align="center"></div>
+    <div align="center">
+      <div id="msg1" align="center" width="400"></div>
+    </div>
+  </form>
 </body>
+
 </html>
