@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/warmachine7733/nodejsOpenshift/issues"
   },
-  "homepage": "https://github.com/warmachine7733/nodejsOpenshift#readme"
+  "homepage": "https://github.com/warmachine7733/nodejsOpenshift#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
