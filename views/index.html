@@ -6,19 +6,19 @@
   <script>
     function exe() {
       if (res1 == 0) {
-        msg1.innerHTML="sundday";
+        msg1.innerHTML = "sundday";
       } else if (this.res1 == 1) {
-        msg1.innerHTML="monday";
+        msg1.innerHTML = "monday";
       } else if (this.res1 == 2) {
-        msg1.innerHTML="tuesday";
+        msg1.innerHTML = "tuesday";
       } else if (this.res1 == 3) {
-        msg1.innerHTML="wednesday";
+        msg1.innerHTML = "wednesday";
       } else if (this.res1 == 4) {
-        msg1.innerHTML="thursday";
+        msg1.innerHTML = "thursday";
       } else if (this.res1 == 5) {
-        msg1.innerHTML="friday";
+        msg1.innerHTML = "friday";
       } else if (this.res1 == 6) {
-        msg1.innerHTML="saturday";
+        msg1.innerHTML = "saturday";
       }
     }
 
@@ -38,7 +38,6 @@
       if (month.value == 1) {
         date.min = "1";
         date.max = "31";
-        date.value = "31";
 
       } else if (month.value == 2) {
         year = document.getElementById("txtYear").value;
@@ -53,56 +52,56 @@
         if (YR == 0) {
           date.min = "1";
           date.max = "29";
-          date.value = "29";
+          date.value = date.max;
         } else {
           date.min = "1";
           date.max = "28";
-          date.value = "28";
+          date.value = date.max;
         }
 
 
       } else if (month.value == 3) {
         date.min = "1";
         date.max = "31";
-        date.value = "31";
+
 
       } else if (month.value == 4) {
         date.min = "1";
         date.max = "30";
-        date.value = "30";
+
       } else if (month.value == 5) {
         date.min = "1";
         date.max = "31"
-        date.value = "31";
+
       } else if (month.value == 6) {
         date.min = "1";
         date.max = "30";
-        date.value = "30";
+
       } else if (month.value == 7) {
         date.min = "1";
         date.max = "31";
-        date.value = "31";
+
 
       } else if (month.value == 8) {
         date.min = "1";
         date.max = "31";
-        date.value = "31";
+
       } else if (month.value == 9) {
         date.min = "1";
         date.max = "30";
-        date.value = "30";
+
       } else if (month.value == 10) {
         date.min = "1";
         date.max = "31";
-        date.value = "31";
+
       } else if (month.value == 11) {
         date.min = "1";
         date.max = "30";
-        date.value = "30";
+
       } else if (month.value == 12) {
         date.min = "1";
         date.max = "31";
-        date.value = "31";
+
       } else if (month.value == "") {
         msg.style.display = "none";
       } else {
@@ -122,14 +121,13 @@
 
     function CheckDate() {
       date = document.getElementById("txtDate");
-      if (date.value == "") {
-        return;
-      }
-      if (date.value > date.max || date.value < date.min) {
+      var dateVal = parseInt(date.value)
+      var dateMax = parseInt(date.max)
+      var dateMin = parseInt(date.min)
+      if (dateVal > dateMax || dateVal < date) {
         alert("invalid date");
-        date.value = date.max;
+        date.value = 1;
       }
-
     }
 
     function ClearClick() {
@@ -162,8 +160,11 @@
         M = parseInt(month.value);
         pY = parseInt(year.value);
         q = pY % 100;
+
         r = pY - q;
+
         h = r % 400;
+
         if (h == 0) {
           ca = 2;
         } else if (h == 100) {
@@ -183,10 +184,10 @@
         P = n / 4;
         p = parseInt(P);
         sum = ca + z + n + p;
-        //console.log(ca);
+
         res = sum % 7;
         D = parseInt(date.value);
-        //console.log(D);
+
         if (M == 1) {
           if (a % 4 == 0) {
             res = res - 1;
@@ -327,16 +328,17 @@
 <body onload="bodyload()">
   <form>
     <div id="mainDiv" align="center">
+      <br>
+      <span style="color:yellow">Year</span>&nbsp&nbsp&nbsp&nbsp
+      <input type="number" id="txtYear" size="20" onkeyup="MonthSelect()">
+      <br>
+      <br>
       <span style="color:yellow">Month</span>&nbsp
       <input type="number" min="1" max="12" id="txtMonth" size="20" onkeyup="MonthSelect()">
       <br>
       <br>
       <span style="color:yellow">Date</span>&nbsp&nbsp&nbsp&nbsp
       <input type="number" id="txtDate" min="" max="" size="20" onkeyup="CheckDate()">
-      <br>
-      <br>
-      <span style="color:yellow">Year</span>&nbsp&nbsp&nbsp&nbsp
-      <input type="number" id="txtYear" size="20" onkeyup="MonthSelect()">
       <br>
       <br>
       <input type="button" class="buttons" value="Find" onclick="FindClick()">&nbsp
